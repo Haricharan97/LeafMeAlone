@@ -18,6 +18,9 @@ move = 5
 ty = 60
 
 hits = 0
+
+start = False
+pause = False
 over = False 
 
 font = pygame.font.Font(None, 40)
@@ -37,7 +40,37 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    if over == False:
+        if event.type == pygame.KEYDOWN:
+
+            if event.key == pygame.K_SPACE:
+
+                if start == False:
+                    start = True
+
+                elif over == True:
+                    lx = 200
+                    ly = 180
+                    ty = 60
+                    hits = 0
+
+                    over = False
+                    pause = False
+
+                    sponges = [
+                        [random.randint(0, 430), 750],
+                        [random.randint(0, 430), 1000],
+                        [random.randint(0, 430), 1250]
+                    ]
+
+                else:
+
+                    if pause == False:
+                        pause = True
+                    else:
+                        pause = False
+
+    if start == True and pause == False and over == False:
+
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
@@ -96,7 +129,7 @@ while running:
         (lx, ly, 100, 50)
     )
 
-    if over == False:
+    if start == True and pause == False and over == False:
 
         if ly < 400:
             ly += up
@@ -160,6 +193,34 @@ while running:
 
     screen.blit(hit_text, (15, 15))
 
+    if start == False:
+
+        start_text = font.render(
+            "PESS SPACE TO START",
+            True,
+            (0, 0, 0)
+        )
+
+        screen.blit(start_text, (85, 330))
+
+        if pause == True:
+
+            pause_text = font.render(
+                "PAUSED",
+                True,
+                (0, 0, 0)
+            )
+
+            screen.blit(pause_text, (190, 300))
+
+            space_text = font.render(
+                "SPACE TO CONTINUE",
+                True,
+                (0, 0, 0)
+            )
+
+            screen.blit(space_text, (105, 350))
+
     if over == True:
         game_text = font.render(
             "GAME OVER",
@@ -168,6 +229,14 @@ while running:
         )
 
         screen.blit(game_text, (165, 300))
+
+        restart_text = font.render(
+            "SPACE TO RESTART",
+            True,
+            (0, 0, 0)
+        )
+
+        screen.blit(restart_text, (115, 350))
 
     pygame.display.update()
 
