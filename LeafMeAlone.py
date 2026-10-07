@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -13,7 +14,14 @@ lx = 200
 ly = 180
 
 up = 2
+move = 5
 ty = 60
+
+sponges = [
+    [random.randint(0, 430), 750],
+    [random.randint(0, 430), 1000],
+    [random.randint(0, 430), 1250]
+]
 
 running = True
 
@@ -23,6 +31,14 @@ while running:
 
         if event.type == pygame.QUIT:
             running = False
+
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_LEFT]:
+        lx -= move
+
+    if keys[pygame.K_RIGHT]:
+        lx += move
 
     screen.fill((180, 220, 250))
 
@@ -55,6 +71,21 @@ while running:
 
     else:
         ty -= up
+
+        for s in sponges:
+
+            s[1] -= up
+
+            pygame.draw.rect(
+                screen,
+                (220, 190, 70),
+                (s[0], s[1], 70, 50)
+            )
+
+            if s[1] < -50:
+
+                s[1] = 750
+                s[0] = random.randint(0, width - 70)
 
     pygame.display.update()
 
