@@ -25,10 +25,13 @@ over = False
 
 font = pygame.font.Font(None, 40)
 
+sw = 80
+sh = 50
+
 sponges = [
-    [random.randint(0, 430), 750],
-    [random.randint(0, 430), 1000],
-    [random.randint(0, 430), 1250]
+    [random.randint(0, width - sw), 750],
+    [random.randint(0, width - sw), 1000],
+    [random.randint(0, width - sw), 1250]
 ]
 
 running = True
@@ -57,9 +60,9 @@ while running:
                     pause = False
 
                     sponges = [
-                        [random.randint(0, 430), 750],
-                        [random.randint(0, 430), 1000],
-                        [random.randint(0, 430), 1250]
+                        [random.randint(0, width - sw), 750],
+                        [random.randint(0, width - sw), 1000],
+                        [random.randint(0, width - sw), 1250]
                     ]
 
                 else:
@@ -144,7 +147,7 @@ while running:
                 pygame.draw.rect(
                     screen,
                     (220, 190, 70),
-                    (s[0], s[1], 70, 50)
+                    (s[0], s[1], sw, sh)
                 )
 
                 leaf = pygame.Rect(
@@ -157,36 +160,72 @@ while running:
                 sponge = pygame.Rect(
                     s[0],
                     s[1],
-                    70,
-                    50
+                    sw,
+                    sh
                 )
 
                 if leaf.colliderect(sponge):
                     hits +=1
 
-                    s[1] = 750
-                    s[0] = random.randint(0, width - 70)
+                    far = max(
+                        sponges[0][1],
+                        sponges[1][1],
+                        sponges[2][1]
+                    )
+
+                    s[1] = far + random.randint(220, 300)
+                    s[0] = random.randint(0, width - sw)
 
                     if hits >= 5:
                         hits = 5
                         over = True
 
-                if s[1] < -50:
+                if s[1] < -sh:
 
-                    s[1] = 750
-                    s[0] = random.randint(0, width - 70)
+                    far = max(
+                        sponges[0][1],
+                        sponges[1][1],
+                        sponges[2][1]
+                    )
 
-    else:
-        for s in sponges:
+                    s[1] = far + random.randint(220, 300)
+                    s[0] = random.randint(0, width - sw)
 
-            pygame.draw.rect(
-                screen,
-                (220, 190, 70),
-                (s[0], s[1], 70, 50)
-            )
+    if pause == True or over == True:
+
+        if ly >= 400:
+
+            for s in sponges:
+
+                pygame.draw.rect(
+                    screen,
+                    (220, 190, 70),
+                    (s[0], s[1], sw, sh)
+                )
+
+                pygame.draw.circle(
+                    screen,
+                    (180, 150, 50),
+                    (s[0] + 20, s[1] + 15),
+                    6
+                )
+
+                pygame.draw.circle(
+                    screen,
+                    (180, 150, 50),
+                    (s[0] + 55, s[1] + 30),
+                    7
+                )
+
+                pygame.draw.circle(
+                    screen,
+                    (180, 150, 50),
+                    (s[0] + 35, s[1] + 38),
+                    5
+                )
 
     hit_text = font.render(
-        "Hist: " + str(hits) + "/5",
+        "Hits: " + str(hits) + "/5",
         True,
         (0, 0, 0)
     )
@@ -203,23 +242,23 @@ while running:
 
         screen.blit(start_text, (85, 330))
 
-        if pause == True:
+    if pause == True:
 
-            pause_text = font.render(
-                "PAUSED",
-                True,
-                (0, 0, 0)
-            )
+        pause_text = font.render(
+            "PAUSED",
+            True,
+            (0, 0, 0)
+        )
 
-            screen.blit(pause_text, (190, 300))
+        screen.blit(pause_text, (190, 300))
 
-            space_text = font.render(
+        space_text = font.render(
                 "SPACE TO CONTINUE",
                 True,
                 (0, 0, 0)
             )
 
-            screen.blit(space_text, (105, 350))
+        screen.blit(space_text, (105, 350))
 
     if over == True:
         game_text = font.render(
