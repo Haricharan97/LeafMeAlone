@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 pygame.init()
 
@@ -33,6 +34,7 @@ hit_time = 0
 end_speed = 10
 
 dry = 0
+swing = 0
 
 font = pygame.font.Font(None, 40)
 
@@ -99,6 +101,7 @@ while running:
                         clear = False
                         hit_time = 0
                         dry = 0
+                        swing = 0
 
                         sponges = [
                             [random.randint(0, width - sw), 750],
@@ -266,6 +269,8 @@ while running:
 
             if landed == False:
 
+                swing += 0.10
+
                 fall += 0.8
                 ly += fall
 
@@ -278,51 +283,57 @@ while running:
     draw_x = lx
     draw_color = leaf_color
 
-    if dry > 0 and over == False:
+    if over == True and clear == True:
 
-        if dry % 6 < 3:
+        draw_x = lx + math.sin(swing) * 18
 
-            draw_x = lx - 5
-            draw_color = (190, 110, 40)
+    if dry > 0 and over == False and pause == False:
 
-        else:
-            draw_x = lx + 5
-            draw_color = leaf_color
-    
+        shake = math.sin(dry * 0.5) * 5
+
+        draw_x = lx + shake
+
+        fade = abs(math.sin(dry * 0.12))
+
+        draw_color = (
+            int(leaf_color[0] + (190 - leaf_color[0]) * fade),
+            int(leaf_color[1] + (110 - leaf_color[1]) * fade),
+            int(leaf_color[2] + (40 - leaf_color[2]) * fade)
+        )
+
     pygame.draw.rect(
         screen,
         draw_color,
-        (draw_x, int(ly), 100, 50)
+        (int(draw_x), int(ly), 100, 50)
     )
 
-    if dry > 0 and over == False:
+    if dry > 0 and over == False and pause == False:
 
-        if dry % 10 < 6:
+        if hits >= 4:
 
-            if hits >= 4:
+            dry_text = font.render(
+                "ONE MORE HIT!",
+                True,
+                (0, 0, 0)
+            )
 
-                dry_text = font.render(
-                    "ONE MORE HIT!",
-                    True,
-                    (120, 65, 30)
-                )
+            screen.blit(
+                dry_text,
+                (140, 330)
+            )
 
-                screen.blit(
-                    dry_text,
-                    (140,330)
-                )
+        else:
 
-            else:
-                dry_text = font.render(
-                    "GETTING DRY!",
-                    True,
-                    (120, 65, 30)
-                )
+            dry_text = font.render(
+                "GETTING DRY!",
+                True,
+                (0, 0, 0)
+            )
 
-                screen.blit(
-                    dry_text,
-                    (145, 330)
-                )
+            screen.blit(
+                dry_text,
+                (145, 330)
+            )
 
     if start == True and pause == False and over == False:
 
@@ -382,7 +393,7 @@ while running:
                     hit_time = 20
 
                     if hits < 5:
-                        dry = 35
+                        dry = 75
 
                     if hits >= 5:
 
@@ -390,6 +401,7 @@ while running:
                         over = True
                         fall = 0
                         clear = False
+                        swing = 0
 
                         break
 
