@@ -32,6 +32,8 @@ clear = False
 hit_time = 0
 end_speed = 10
 
+dry = 0
+
 font = pygame.font.Font(None, 40)
 
 sw = 80
@@ -96,6 +98,7 @@ while running:
                         fall = 0
                         clear = False
                         hit_time = 0
+                        dry = 0
 
                         sponges = [
                             [random.randint(0, width - sw), 750],
@@ -135,6 +138,9 @@ while running:
     if hit_time > 0 and pause == False and over == False:
 
         hit_time -= 1
+
+    if dry > 0 and pause == False and over == False:
+        dry -= 1
 
     if start == True and pause == False and over == False:
 
@@ -260,7 +266,7 @@ while running:
 
             if landed == False:
 
-                fall += 0.08
+                fall += 0.8
                 ly += fall
 
                 if ly >= ground - 50:
@@ -268,12 +274,55 @@ while running:
                     ly = ground - 50
                     landed = True
                     fall = 0
-            
+
+    draw_x = lx
+    draw_color = leaf_color
+
+    if dry > 0 and over == False:
+
+        if dry % 6 < 3:
+
+            draw_x = lx - 5
+            draw_color = (190, 110, 40)
+
+        else:
+            draw_x = lx + 5
+            draw_color = leaf_color
+    
     pygame.draw.rect(
         screen,
-        leaf_color,
-        (lx, ly, 100, 50)
+        draw_color,
+        (draw_x, int(ly), 100, 50)
     )
+
+    if dry > 0 and over == False:
+
+        if dry % 10 < 6:
+
+            if hits >= 4:
+
+                dry_text = font.render(
+                    "ONE MORE HIT!",
+                    True,
+                    (120, 65, 30)
+                )
+
+                screen.blit(
+                    dry_text,
+                    (140,330)
+                )
+
+            else:
+                dry_text = font.render(
+                    "GETTING DRY!",
+                    True,
+                    (120, 65, 30)
+                )
+
+                screen.blit(
+                    dry_text,
+                    (145, 330)
+                )
 
     if start == True and pause == False and over == False:
 
@@ -331,6 +380,9 @@ while running:
                 if leaf.colliderect(sponge) and hit_time == 0:
                     hits +=1
                     hit_time = 20
+
+                    if hits < 5:
+                        dry = 35
 
                     if hits >= 5:
 
@@ -513,10 +565,6 @@ while running:
 
                 for s in sponges:
 
-                    if s[1] > -sh:
-
-                        s[1] -= up
-
                     pygame.draw.rect(
                         screen,
                         (220, 190, 70),
@@ -544,16 +592,12 @@ while running:
                         5
                     )
 
-                if coin_y > -30:
-
-                    coin_y -= up
-
                     if coin_type == 1:
 
                         pygame.draw.circle(
                             screen,
                             (255, 220, 40),
-                            (coin_x, coin_y),
+                            (coin_x, int(coin_y)),
                             15
                         )
 
@@ -562,7 +606,7 @@ while running:
                         pygame.draw.circle(
                             screen,
                             (255, 140, 30),
-                            (coin_x, coin_y),
+                            (coin_x, int(coin_y)),
                             22
                         )
                 
