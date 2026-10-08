@@ -191,7 +191,7 @@ while running:
             if s[1] > -sh and s[1] <= height:
 
                 clear = False
-                s[1] -= up
+                s[1] -= 7
 
                 pygame.draw.rect(
                     screen,
@@ -224,7 +224,7 @@ while running:
 
             clear = False
 
-            coin_y -= up
+            coin_y -= 7
 
             if coin_type == 1:
                 pygame.draw.circle(
@@ -252,7 +252,7 @@ while running:
 
             if landed == False:
 
-                fall += 0.15
+                fall += 0.45
                 ly += fall
 
                 if ly >= ground - 50:
@@ -260,7 +260,7 @@ while running:
                     ly = ground - 50
                     landed = True
                     fall = 0
-                    
+
                 ly += fall
 
                 if ly >= ground - 50:
@@ -339,8 +339,6 @@ while running:
                         clear = False
 
                         break
-
-
 
                     far = height
 
