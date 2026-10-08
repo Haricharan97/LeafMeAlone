@@ -28,6 +28,14 @@ font = pygame.font.Font(None, 40)
 sw = 80
 sh = 50
 
+score = 0
+coins = 0
+
+coin_x = random.randint(20, width - 20)
+coin_y = 900
+
+coin_type = 1
+
 sponges = [
     [random.randint(0, width - sw), 750],
     [random.randint(0, width - sw), 1000],
@@ -54,7 +62,14 @@ while running:
                     lx = 200
                     ly = 180
                     ty = 60
+
                     hits = 0
+                    score = 0
+                    coins = 0
+
+                    coin_x = random.randint(25, width - 25)
+                    coin_y = 900
+                    coin_type = 1
 
                     over = False
                     pause = False
@@ -150,6 +165,27 @@ while running:
                     (s[0], s[1], sw, sh)
                 )
 
+                pygame.draw.circle(
+                    screen,
+                    (180, 150, 50),
+                    (s[0] + 20, s[1] + 15),
+                    6
+                )
+
+                pygame.draw.circle(
+                    screen,
+                    (180, 150, 50),
+                    (s[0] + 55, s[1] + 30),
+                    7
+                )
+
+                pygame.draw.circle(
+                    screen,
+                    (180, 150, 50),
+                    (s[0] + 35, s[1] + 38),
+                    5
+                )
+
                 leaf = pygame.Rect(
                     lx,
                     ly,
@@ -176,11 +212,21 @@ while running:
                     s[1] = far + random.randint(220, 300)
                     s[0] = random.randint(0, width - sw)
 
+                    while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
+
+                        s[0] = random.randint(
+                            0, 
+                            width - sw
+                        )
+
                     if hits >= 5:
+
                         hits = 5
                         over = True
 
                 if s[1] < -sh:
+
+                    score += 1
 
                     far = max(
                         sponges[0][1],
@@ -191,6 +237,139 @@ while running:
                     s[1] = far + random.randint(220, 300)
                     s[0] = random.randint(0, width - sw)
 
+                    while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
+
+                        s[0] = random.randint(
+                            0, 
+                            width - sw
+                        )
+
+            coin_y -= up
+
+            if coin_type == 1:
+
+                coin_size = 15
+
+            else:
+                coin_size = 22
+
+            coin_box = pygame.Rect(
+                coin_x - coin_size,
+                coin_y - coin_size,
+                coin_size * 2,
+                coin_size * 2
+            )
+
+            leaf = pygame.Rect(
+                lx,
+                ly,
+                100,
+                50
+            )
+
+            if leaf.colliderect(coin_box):
+
+                    if coin_type == 1:
+
+                        coins += 1
+                        score += 5
+
+                    else:
+
+                        coins += 5
+                        score += 25
+
+                    coin_x = random.randint(
+                        25,
+                        width - 25
+                    )
+
+                    coin_y = random.randint(
+                        800,
+                        1100
+                    )
+
+                    safe = False
+
+                    while safe == False:
+
+                        safe = True
+
+                        for s in sponges:
+
+                            if abs(coin_x - s[0]) < 100 and abs(coin_y - s[1]) < 100:
+
+                                coin_x = random.randint(
+                                    25,
+                                    width - 25
+                                )
+
+                                coin_y = random.randint(
+                                    800,
+                                    1100
+                                )
+
+                                safe = False
+                                break
+
+                    if random.randint(1,5) == 1:
+                        coin_type = 2
+
+                    else:
+                        coin_type = 1
+
+            if coin_y < -30:
+
+                    coin_x = random.randint(
+                        25,
+                        width - 25
+                    )
+
+                    coin_y = random.randint(
+                        800,
+                        1100
+                    )
+
+                    safe = False
+
+                    while safe == False:
+
+                        safe = True
+
+                        for s in sponges:
+
+                            if abs(coin_x - s[0]) < 100 and abs(coin_y - s[1]) < 100:
+                                coin_x = random.randint(25, width - 25)
+
+                                coin_y = random.randint(800, 1100)
+
+                                safe = False
+                                break
+
+                    if random.randint(1, 5) == 1:
+                        coin_type = 2
+
+                    else:
+                        coin_type = 1
+
+            if coin_type == 1:
+
+                pygame.draw.circle(
+                    screen,
+                    (255, 220, 40),
+                    (coin_x, coin_y),
+                    15
+                )
+
+            else:
+
+                pygame.draw.circle(
+                    screen,
+                    (255, 140, 30),
+                    (coin_x, coin_y),
+                    22
+                )
+                
     if pause == True or over == True:
 
         if ly >= 400:
@@ -224,6 +403,24 @@ while running:
                     5
                 )
 
+            if coin_type == 1:
+
+                pygame.draw.circle(
+                    screen,
+                    (255, 220, 40),
+                    (coin_x, coin_y),
+                    15
+                )
+
+            else:
+
+                pygame.draw.circle(
+                    screen,
+                    (255, 140, 30),
+                    (coin_x, coin_y),
+                    22
+                )
+                
     hit_text = font.render(
         "Hits: " + str(hits) + "/5",
         True,
@@ -232,10 +429,26 @@ while running:
 
     screen.blit(hit_text, (15, 15))
 
+    score_text = font.render(
+        "Score: " + str(score),
+        True,
+        (0, 0, 0)
+    )
+
+    screen.blit(score_text, (170, 15))
+
+    coin_text = font.render(
+        "Coins: " + str(coins),
+        True,
+        (0, 0, 0)
+    )
+
+    screen.blit(coin_text, (350, 15))
+
     if start == False:
 
         start_text = font.render(
-            "PESS SPACE TO START",
+            "PRESS SPACE TO START",
             True,
             (0, 0, 0)
         )
