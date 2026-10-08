@@ -260,32 +260,36 @@ while running:
                     22
                 )
 
+        if landed == False:
+
+            swing += 0.13
+
+            fall += 0.06
+
+            if fall > 2.8:
+                fall = 2.8
+
+            ly += fall
+
+            if ly >= ground - 50:
+
+                ly = ground - 50
+                landed = True
+                fall = 0
         if clear == True:
+
             pygame.draw.rect(
                 screen,
                 (70, 140, 60),
                 (0, ground, width, 50)
             )
 
-            if landed == False:
-
-                swing += 0.10
-
-                fall += 0.8
-                ly += fall
-
-                if ly >= ground - 50:
-
-                    ly = ground - 50
-                    landed = True
-                    fall = 0
-
     draw_x = lx
     draw_color = leaf_color
 
-    if over == True and clear == True:
+    if over == True:
 
-        draw_x = lx + math.sin(swing) * 18
+        draw_x = lx + math.sin(swing) * 35
 
     if dry > 0 and over == False and pause == False:
 
