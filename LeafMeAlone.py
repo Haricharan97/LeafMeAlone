@@ -31,6 +31,8 @@ sh = 50
 score = 0
 coins = 0
 
+level = 1
+
 coin_x = random.randint(20, width - 20)
 coin_y = 900
 
@@ -38,8 +40,10 @@ coin_type = 1
 
 sponges = [
     [random.randint(0, width - sw), 750],
-    [random.randint(0, width - sw), 1000],
-    [random.randint(0, width - sw), 1250]
+    [random.randint(0, width - sw), 950],
+    [random.randint(0, width - sw), 1150],
+    [random.randint(0, width - sw), 1350],
+    [random.randint(0, width - sw), 1550]
 ]
 
 running = True
@@ -67,6 +71,9 @@ while running:
                     score = 0
                     coins = 0
 
+                    level = 1
+                    up = 2
+
                     coin_x = random.randint(25, width - 25)
                     coin_y = 900
                     coin_type = 1
@@ -76,8 +83,10 @@ while running:
 
                     sponges = [
                         [random.randint(0, width - sw), 750],
-                        [random.randint(0, width - sw), 1000],
-                        [random.randint(0, width - sw), 1250]
+                        [random.randint(0, width - sw), 950],
+                        [random.randint(0, width - sw), 1150],
+                        [random.randint(0, width - sw), 1350],
+                        [random.randint(0, width - sw), 1550]
                     ]
 
                 else:
@@ -86,6 +95,26 @@ while running:
                         pause = True
                     else:
                         pause = False
+
+    if score < 30:
+
+        level = 1
+        up = 2
+
+    elif score < 70:
+
+        level = 2
+        up = 3
+
+    elif score < 120:
+
+        level = 3
+        up = 4
+
+    else:
+
+        level = 4
+        up = 5
 
     if start == True and pause == False and over == False:
 
@@ -203,13 +232,16 @@ while running:
                 if leaf.colliderect(sponge):
                     hits +=1
 
-                    far = max(
-                        sponges[0][1],
-                        sponges[1][1],
-                        sponges[2][1]
-                    )
 
-                    s[1] = far + random.randint(220, 300)
+
+                    far = height
+
+                    for other in sponges:
+
+                        if other[1] > far:
+                            far = other[1]
+
+                    s[1] = far + random.randint(170, 230)
                     s[0] = random.randint(0, width - sw)
 
                     while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
@@ -228,13 +260,14 @@ while running:
 
                     score += 1
 
-                    far = max(
-                        sponges[0][1],
-                        sponges[1][1],
-                        sponges[2][1]
-                    )
+                    far = height
 
-                    s[1] = far + random.randint(220, 300)
+                    for other in sponges:
+
+                        if other[1] > far:
+                            far = other[1]
+
+                    s[1] = far + random.randint(170, 230)
                     s[0] = random.randint(0, width - sw)
 
                     while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
