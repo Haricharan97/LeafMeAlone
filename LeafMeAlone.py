@@ -29,6 +29,9 @@ fall = 0
 
 clear = False
 
+hit_time = 0
+end_speed = 10
+
 font = pygame.font.Font(None, 40)
 
 sw = 80
@@ -92,6 +95,7 @@ while running:
                         landed = False
                         fall = 0
                         clear = False
+                        hit_time = 0
 
                         sponges = [
                             [random.randint(0, width - sw), 750],
@@ -127,6 +131,10 @@ while running:
 
         level = 4
         up = 5
+
+    if hit_time > 0 and pause == False and over == False:
+
+        hit_time -= 1
 
     if start == True and pause == False and over == False:
 
@@ -191,7 +199,7 @@ while running:
             if s[1] > -sh and s[1] <= height:
 
                 clear = False
-                s[1] -= 7
+                s[1] -= end_speed
 
                 pygame.draw.rect(
                     screen,
@@ -224,7 +232,7 @@ while running:
 
             clear = False
 
-            coin_y -= 7
+            coin_y -= end_speed
 
             if coin_type == 1:
                 pygame.draw.circle(
@@ -252,15 +260,7 @@ while running:
 
             if landed == False:
 
-                fall += 0.45
-                ly += fall
-
-                if ly >= ground - 50:
-
-                    ly = ground - 50
-                    landed = True
-                    fall = 0
-
+                fall += 0.08
                 ly += fall
 
                 if ly >= ground - 50:
@@ -328,8 +328,9 @@ while running:
                     sh
                 )
 
-                if leaf.colliderect(sponge):
+                if leaf.colliderect(sponge) and hit_time == 0:
                     hits +=1
+                    hit_time = 20
 
                     if hits >= 5:
 
@@ -508,60 +509,62 @@ while running:
                     
     if pause == True and over == False:
 
-            for s in sponges:
+            if ly >= 400:
 
-                if s[1] > -sh:
+                for s in sponges:
 
-                    s[1] -= up
+                    if s[1] > -sh:
 
-                pygame.draw.rect(
-                    screen,
-                    (220, 190, 70),
-                    (s[0], s[1], sw, sh)
-                )
+                        s[1] -= up
 
-                pygame.draw.circle(
-                    screen,
-                    (180, 150, 50),
-                    (s[0] + 20, s[1] + 15),
-                    6
-                )
-
-                pygame.draw.circle(
-                    screen,
-                    (180, 150, 50),
-                    (s[0] + 55, s[1] + 30),
-                    7
-                )
-
-                pygame.draw.circle(
-                    screen,
-                    (180, 150, 50),
-                    (s[0] + 35, s[1] + 38),
-                    5
-                )
-
-            if coin_y > -30:
-
-                coin_y -= up
-
-                if coin_type == 1:
+                    pygame.draw.rect(
+                        screen,
+                        (220, 190, 70),
+                        (s[0], s[1], sw, sh)
+                    )
 
                     pygame.draw.circle(
                         screen,
-                        (255, 220, 40),
-                        (coin_x, coin_y),
-                        15
+                        (180, 150, 50),
+                        (s[0] + 20, s[1] + 15),
+                        6
                     )
-
-                else:
 
                     pygame.draw.circle(
                         screen,
-                        (255, 140, 30),
-                        (coin_x, coin_y),
-                        22
+                        (180, 150, 50),
+                        (s[0] + 55, s[1] + 30),
+                        7
                     )
+
+                    pygame.draw.circle(
+                        screen,
+                        (180, 150, 50),
+                        (s[0] + 35, s[1] + 38),
+                        5
+                    )
+
+                if coin_y > -30:
+
+                    coin_y -= up
+
+                    if coin_type == 1:
+
+                        pygame.draw.circle(
+                            screen,
+                            (255, 220, 40),
+                            (coin_x, coin_y),
+                            15
+                        )
+
+                    else:
+
+                        pygame.draw.circle(
+                            screen,
+                            (255, 140, 30),
+                            (coin_x, coin_y),
+                            22
+                        )
                 
     hit_text = font.render(
         "Hits: " + str(hits) + "/5",
