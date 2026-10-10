@@ -164,6 +164,10 @@ while running:
         if lx > width - 100:
             lx = width - 100
 
+    if start == True and pause == False and over == False:
+        if ly >= 400:
+            ty -= up
+    
     screen.fill((180, 220, 250))
 
     pygame.draw.rect(
@@ -291,11 +295,11 @@ while running:
                 landed = True
                 fall = 0
 
-            pygame.draw.rect(
-                screen,
-                (70, 140, 60),
-                (0, ground, width, 50)
-            )
+        pygame.draw.rect(
+            screen,
+            (70, 140, 60),
+            (0, ground, width, 50)
+        )
 
     draw_x = lx
     draw_color = leaf_color
@@ -356,8 +360,6 @@ while running:
 
         else:
             
-            ty -= up
-
             for s in sponges:
 
                 s[1] -= up
@@ -500,68 +502,29 @@ while running:
                             1100
                         )
 
-                        safe = False
+                        safe = True
 
                         for s in sponges:
 
-                                if (
+                            if (
                                     abs(coin_x - s[0]) < 100
                                     and abs(coin_y - s[1]) < 100
-                                    ):
-                                        safe
-
-                                        coin_x = random.randint(
-                                            25,
-                                            width - 25
-                                        )
-
-                                        coin_y = random.randint(
-                                            800,
-                                            1100
-                                        )
-
-                                        safe = False
-                                        break
-
-                        if random.randint(1,5) == 1:
-                            coin_type = 2
-
-                        else:
-                            coin_type = 1
-
-                if coin_y < -30:
-
-                        coin_x = random.randint(
-                            25,
-                            width - 25
-                        )
-
-                        coin_y = random.randint(
-                            800,
-                            1100
-                        )
-
-                        safe = False
-
-                        while safe == False:
-
-                            safe = True
-
-                            for s in sponges:
-
-                                if abs(coin_x - s[0]) < 100 and abs(coin_y - s[1]) < 100:
-                                    coin_x = random.randint(25, width - 25)
-
-                                    coin_y = random.randint(800, 1100)
-
+                                ):
                                     safe = False
                                     break
 
-                        if random.randint(1, 5) == 1:
-                            coin_type = 2
+                        if safe == True:
+                            break
 
-                        else:
-                            coin_type = 1
+                    if safe == False:
+                        coin_x = random.randint(25, width - 25)
+                        coin_y = max(s[1] for s in sponges) + 250
+
+                    if random.randint(1,5) == 1:
+                        coin_type = 2
+
+                    else:
+                        coin_type = 1
 
                 if coin_type == 1:
 
@@ -589,10 +552,6 @@ while running:
 
     else:
         draw_x = lx
-
-    pygame.draw.rect(
-        screen, draw_color, (int(draw_x), int(ly), 100, 50)
-    )
 
     if pause == True and over == False:
 
@@ -644,6 +603,12 @@ while running:
                         (coin_x, int(coin_y)),
                         22
                     )
+
+    pygame.draw.rect(
+        screen,
+        draw_color,
+        (int(draw_x), int(ly), 100, 50)
+    )
             
     hit_text = font.render(
         "Hits: " + str(hits) + "/5",
