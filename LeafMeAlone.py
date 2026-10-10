@@ -392,7 +392,7 @@ while running:
                 )
 
                 leaf = pygame.Rect(
-                    lx,
+                    draw_x,
                     ly,
                     100, 
                     50
@@ -432,9 +432,13 @@ while running:
                     s[1] = far + random.randint(170, 230)
                     s[0] = random.randint(0, width - sw)
 
-                    while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
-
+                    for i in range (50):
+                        if abs(s[0] - coin_x) >= 100 or abs(s[1] - coin_y) >= 100:
+                            break
                         s[0] = random.randint(0, width - sw)
+
+                    if abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
+                        s[1] = max(other[1] for other in sponges) + 250
 
                 elif s[1] < -sh:
 
@@ -445,9 +449,15 @@ while running:
                     s[1] = far + random.randint(170, 230)
                     s[0] = random.randint(0, width - sw)
 
-                    while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
+                    for i in range(50):
+
+                        if abs(s[0] - coin_x) >= 100 or abs(s[1] - coin_y) >= 100:
+                            break
 
                         s[0] = random.randint(0, width - sw)
+
+                    if abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
+                        s[1] = max(other[1] for other in sponges) + 250
 
             if over == False:
             
@@ -468,7 +478,7 @@ while running:
                 )
 
                 leaf = pygame.Rect(
-                    lx,
+                    draw_x,
                     ly,
                     100,
                     50
