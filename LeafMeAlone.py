@@ -213,11 +213,6 @@ while running:
             if s[1] + sh > 0 and s[1] < height:
                 clear = False
 
-                s[1] -= end_speed
-
-                if s[1] + sh > 0 and s[1] < height:
-                    clear = False
-
                 pygame.draw.rect(
                     screen,
                     (220, 190, 70),
@@ -245,11 +240,11 @@ while running:
                     5
                 )
 
-        if coin_y > -30 and coin_y <= height:
+        coin_y -= end_speed
+
+        if coin_y + 22 > 0 and coin_y < height:
 
             clear = False
-
-            coin_y -= end_speed
 
             if coin_type == 1:
                 pygame.draw.circle(
@@ -295,8 +290,6 @@ while running:
                 ly = ground - 50
                 landed = True
                 fall = 0
-
-        if clear == True:
 
             pygame.draw.rect(
                 screen,
@@ -432,43 +425,27 @@ while running:
 
                         break
 
-                    far = height
-
-                    for other in sponges:
-
-                        if other[1] > far:
-                            far = other[1]
+                    far = max(height, max(other[1] for other in sponges))
 
                     s[1] = far + random.randint(170, 230)
                     s[0] = random.randint(0, width - sw)
 
                     while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
 
-                        s[0] = random.randint(
-                            0, 
-                            width - sw
-                        )
+                        s[0] = random.randint(0, width - sw)
 
-                if s[1] < -sh:
+                elif s[1] < -sh:
 
                     score += 1
 
-                    far = height
-
-                    for other in sponges:
-
-                        if other[1] > far:
-                            far = other[1]
+                    far = max(height, max(other[1] for other in sponges))
 
                     s[1] = far + random.randint(170, 230)
                     s[0] = random.randint(0, width - sw)
 
                     while abs(s[0] - coin_x) < 100 and abs(s[1] - coin_y) < 100:
 
-                        s[0] = random.randint(
-                            0, 
-                            width - sw
-                        )
+                        s[0] = random.randint(0, width - sw)
 
             if over == False:
             
@@ -507,6 +484,12 @@ while running:
                             coins += 5
                             score += 25
 
+                if leaf.colliderect(coin_box) or coin_y < -coin_size:
+
+                    safe = False
+
+                    for i in range(50):
+
                         coin_x = random.randint(
                             25,
                             width - 25
@@ -519,26 +502,26 @@ while running:
 
                         safe = False
 
-                        while safe == False:
+                        for s in sponges:
 
-                            safe = True
+                                if (
+                                    abs(coin_x - s[0]) < 100
+                                    and abs(coin_y - s[1]) < 100
+                                    ):
+                                        safe
 
-                            for s in sponges:
+                                        coin_x = random.randint(
+                                            25,
+                                            width - 25
+                                        )
 
-                                if abs(coin_x - s[0]) < 100 and abs(coin_y - s[1]) < 100:
+                                        coin_y = random.randint(
+                                            800,
+                                            1100
+                                        )
 
-                                    coin_x = random.randint(
-                                        25,
-                                        width - 25
-                                    )
-
-                                    coin_y = random.randint(
-                                        800,
-                                        1100
-                                    )
-
-                                    safe = False
-                                    break
+                                        safe = False
+                                        break
 
                         if random.randint(1,5) == 1:
                             coin_type = 2
