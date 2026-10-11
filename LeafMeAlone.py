@@ -272,10 +272,10 @@ while running:
             falle += 1
             swing += 0.115
 
-            fall += 0.045
+            fall += 0.12
 
-            if fall > 4.5:
-                fall = 4.5
+            if fall > 5:
+                fall = 5
 
             ly += fall
 
@@ -294,12 +294,6 @@ while running:
                 ly = ground - 50
                 landed = True
                 fall = 0
-
-        pygame.draw.rect(
-            screen,
-            (70, 140, 60),
-            (0, ground, width, 50)
-        )
 
     draw_x = lx
     draw_color = leaf_color
@@ -554,15 +548,6 @@ while running:
                         22
                     )
 
-    if over == True:
-        draw_x = lx
-
-    elif dry > 0 and pause == False:
-        draw_x = lx + math.sin(dry * 0.5) * 5
-
-    else:
-        draw_x = lx
-
     if pause == True and over == False:
 
             if ly >= 400:
@@ -616,9 +601,22 @@ while running:
 
     pygame.draw.rect(
         screen,
-        draw_color,
-        (int(draw_x), int(ly), 100, 50)
+        (70, 140,60),
+        (0, ground, width, 50)
     )
+    
+    ilx = int(draw_x)
+    ily = int(ly)
+
+    pygame.draw.rect(screen, draw_color, (ilx + 10, ily, 80, 10))
+    pygame.draw.rect(screen, draw_color, (ilx, ily + 10, 100, 30))
+    pygame.draw.rect(screen, draw_color, (ilx + 20, ily + 40, 80, 10))
+
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily + 80, 10), 2)
+    pygame.draw.rect(screen, (50, 80, 35), (ilx, ily + 10, 100, 30), 2)
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily + 40, 80, 10), 2)
+    
+    pygame.draw.rect(screen, (85, 105, 45), (ilx + 12, ily + 23, 76, 4))
             
     hit_text = font.render(
         "Hits: " + str(hits) + "/5",
