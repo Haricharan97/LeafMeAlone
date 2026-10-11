@@ -170,23 +170,27 @@ while running:
     
     screen.fill((180, 220, 250))
 
-    pygame.draw.rect(
-        screen,
-        (120, 75, 40),
-        (150, ty + 220, 200, height - (ty + 220))
-    )
+    pygame.draw.rect(screen, (115, 70, 35), (200, ty + 170, 100, 450))
 
-    pygame.draw.rect(
-        screen,
-        (40, 150, 60),
-        (50, ty, 400, 180)
-    )
+    pygame.draw.rect(screen, (85, 50, 30), (275, ty + 170, 25, 450))
+    pygame.draw.rect(screen, (150, 95, 50), (210, ty + 190, 12, 400))
 
-    pygame.draw.rect(
-        screen,
-        (40, 150, 60),
-        (0, ty + 60, 500, 180)
-    )
+    pygame.draw.rect(screen, (90, 55, 30), (235, ty + 260, 8, 65))
+    pygame.draw.rect(screen, (90, 55, 30), (255, ty + 370, 8, 85))
+    pygame.draw.rect(screen, (145, 90, 45), (255, ty + 450, 8, 50))
+
+    pygame.draw.rect(screen, (115, 70, 35), (135, ty + 190, 100, 25))
+    pygame.draw.rect(screen, (85, 50, 30), (135, ty + 210, 100, 5))
+
+    pygame.draw.rect(screen, (115, 70, 35), (275, ty + 160, 100, 25))
+    pygame.draw.rect(screen, (85, 50, 30), (275, ty + 180, 100, 5))
+
+    pygame.draw.rect(screen, (35, 120, 50), (100, ty + 20, 300, 180))
+    pygame.draw.rect(screen, (35, 120, 50), (50, ty + 60, 400, 100))
+    pygame.draw.rect(screen, (35, 120, 50), (150, ty, 200, 220))
+    pygame.draw.rect(screen, (35, 120, 50), (0, ty + 100, 500, 60))
+
+    
 
     if hits == 0:
         leaf_color = (60, 180, 70)
