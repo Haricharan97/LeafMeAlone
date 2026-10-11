@@ -217,11 +217,11 @@ while running:
             if s[1] + sh > 0 and s[1] < height:
                 clear = False
 
-                pygame.draw.rect(
-                    screen,
-                    (220, 190, 70),
-                    (s[0], s[1], sw, sh)
-                )
+                pygame.draw.rect(screen, (220, 190, 70), (s[0] + 8, s[1], 64, 50))
+                pygame.draw.rect(screen, (220, 190, 70), (s[0], s[1] + 8, 80, 34))
+                pygame.draw.rect(screen, (175, 140, 45), (s[0] + 72, s[1] + 8, 8, 34))
+                pygame.draw.rect(screen, (175, 140, 45), (s[0] + 64, s[1] + 42, 8, 8))
+                pygame.draw.rect(screen, (175, 140, 45), (s[0] + 8, s[1] + 45, 64, 5))
 
                 pygame.draw.circle(
                     screen,
@@ -358,11 +358,11 @@ while running:
 
                 s[1] -= up
 
-                pygame.draw.rect(
-                    screen,
-                    (220, 190, 70),
-                    (s[0], s[1], sw, sh)
-                )
+                pygame.draw.rect(screen, (220, 190, 70), (s[0] + 8, s[1], 64, 50))
+                pygame.draw.rect(screen, (220, 190, 70), (s[0], s[1] + 8, 80, 34))
+                pygame.draw.rect(screen, (175, 140, 45), (s[0] + 72, s[1] + 8, 8, 34))
+                pygame.draw.rect(screen, (175, 140, 45), (s[0] + 64, s[1] + 42, 8, 8))
+                pygame.draw.rect(screen, (175, 140, 45), (s[0] + 8, s[1] + 45, 64, 5))
 
                 pygame.draw.circle(
                     screen,
@@ -554,11 +554,11 @@ while running:
 
                 for s in sponges:
 
-                    pygame.draw.rect(
-                        screen,
-                        (220, 190, 70),
-                        (s[0], s[1], sw, sh)
-                    )
+                    pygame.draw.rect(screen, (220, 190, 70), (s[0] + 8, s[1], 64, 50))
+                    pygame.draw.rect(screen, (220, 190, 70), (s[0], s[1] + 8, 80, 34))
+                    pygame.draw.rect(screen, (175, 140, 45), (s[0] + 72, s[1] + 8, 8, 34))
+                    pygame.draw.rect(screen, (175, 140, 45), (s[0] + 64, s[1] + 42, 8, 8))
+                    pygame.draw.rect(screen, (175, 140, 45), (s[0] + 8, s[1] + 45, 64, 5))
 
                     pygame.draw.circle(
                         screen,
