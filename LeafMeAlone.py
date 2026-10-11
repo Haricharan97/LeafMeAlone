@@ -610,11 +610,23 @@ while running:
 
     pygame.draw.rect(screen, draw_color, (ilx + 10, ily, 80, 10))
     pygame.draw.rect(screen, draw_color, (ilx, ily + 10, 100, 30))
-    pygame.draw.rect(screen, draw_color, (ilx + 20, ily + 40, 80, 10))
+    pygame.draw.rect(screen, draw_color, (ilx + 10, ily + 40, 80, 10))
 
-    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily + 80, 10), 2)
-    pygame.draw.rect(screen, (50, 80, 35), (ilx, ily + 10, 100, 30), 2)
-    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily + 40, 80, 10), 2)
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily, 80, 2))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily + 48, 80, 2))
+
+    pygame.draw.rect(screen, (50, 80, 35), (ilx, ily + 10, 2, 30))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 98, ily + 10, 2, 30))
+
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily, 2, 10))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 88, ily, 2, 10))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily + 40, 2, 10))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 88, ily + 40, 2, 10))
+
+    pygame.draw.rect(screen, (50, 80, 35), (ilx, ily + 10, 10, 2))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 90, ily + 10, 10, 2))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx, ily + 38, 10, 2))
+    pygame.draw.rect(screen, (50, 80, 35), (ilx + 90, ily + 38, 10, 2))
     
     pygame.draw.rect(screen, (85, 105, 45), (ilx + 12, ily + 23, 76, 4))
             
