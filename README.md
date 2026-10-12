@@ -19,7 +19,7 @@
 
 LeafMeAlone is a google's "Hot Air Balloon" inspired arcade game where you control a leaf trying to stay green across the sky.
 
-Each coin collected increases your distance (score). Avoid sponges while trying to survive as the game gets progressively faster.
+Collect coins to increase your score dodging sponges that slowly sry out your leaf. As the game progresses, things get faster, obstacles become harder to avoid, and survi.ing becomes increasingly challenging/
 
 LeafMeAlone is built with **Python and Pygame** and uses **Pygbag** to run directly in the browser.
 

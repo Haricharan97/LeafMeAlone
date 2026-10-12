@@ -308,12 +308,11 @@ async def main():
         else:
             leaf_color = (120, 65, 30)
 
-        if over == True:
+        if over == True and landed == False:
 
             clear = True
 
-            if clear == True and landed == False:
-                ty -= end_speed
+            ty -= end_speed
 
             for s in sponges:
 
@@ -357,7 +356,7 @@ async def main():
 
                 drawc(coin_x, coin_y, coin_type)
 
-            if landed == False and clear == True:
+            if landed == False:
 
                 falle += 1
                 swing += 0.115
