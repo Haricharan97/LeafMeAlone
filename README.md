@@ -27,10 +27,9 @@ LeafMeAlone is built with **Python and Pygame** and uses **Pygbag** to run direc
 
 ## Features
 
-- Retro Flappy Bird style movement
-- Treasure hunting and score tracking
-- Random marine ruins obstacles
-- Bonus treasure box worth 5 coins 
+- Coins collection and score tracking
+- Random sponge obstacles
+- Bonus big coins worth 5 coins 
 - Browser support with Pygbag
 
 ---
@@ -40,15 +39,16 @@ LeafMeAlone is built with **Python and Pygame** and uses **Pygbag** to run direc
 1. Press `SPACE` to start.
 2. Use `SPACE` to fly around the sky.
 3. Collect coins to increase your score.
-4. Collect treasure box for extra points.
-5. Avoid marine ruins and falling in the ocean or flying way to high in sky.
+4. Collect big coins for extra points.
+5. Avoid sponges.
 6. Survive for as long as possible.
 
 ---
 
 ## Controls
 
-`SPACE` = Fly
+`←` = Move Left
+`→` = Move Right
 
 ---
 
@@ -60,7 +60,7 @@ LeafMeAlone is built with **Python and Pygame** and uses **Pygbag** to run direc
 
 |Treasure | Game Over|
 |---|---|
-| ![Treasure](./assets/3.png) | ![Game Over](./assets/4.png) | 
+| ![Coins](./assets/3.png) | ![Game Over](./assets/4.png) | 
 
 
 ---
