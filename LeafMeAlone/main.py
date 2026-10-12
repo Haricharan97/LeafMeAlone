@@ -507,7 +507,7 @@ async def main():
 
                             hits = 5
                             over = True
-
+                            groundy = height + 10
                             fall = 0
                             swing = 0
                             falle = 0
@@ -669,7 +669,7 @@ async def main():
             pygame.draw.rect(screen, (65, 155, 65), (0, groundy, width, 12))
             pygame.draw.rect(screen, (40, 115, 45), (0, groundy + 12, width, 5))
 
-            for x in range(0, width, 25): 
+            for x in range(0, width, 60): 
                 pygame.draw.rect(screen, (65, 155, 65), (x + 5, groundy - 8, 6, 10))
                 pygame.draw.rect(screen, (85, 180, 75), (x + 12, groundy - 5, 5, 7))
 
