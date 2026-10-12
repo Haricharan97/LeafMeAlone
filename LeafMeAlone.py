@@ -26,6 +26,7 @@ over = False
 
 landed = False
 ground = 650
+groundy = height
 fall = 0
 
 clear = False
@@ -126,6 +127,7 @@ while running:
 
                         landed = False
                         fall = 0
+                        groundy = height
                         clear = False
                         hit_time = 0
                         dry = 0
@@ -334,6 +336,9 @@ while running:
 
             ly += fall
 
+            if groundy > ground:
+                groundy = max(ground, groundy - fall * 0.5)
+
             rem = max(0, (ground - 50 - ly) / 200)
             amp = 12 + 28 * min(1, rem)
 
@@ -344,7 +349,7 @@ while running:
 
             lx = max(0, min(width - 100, lx))
 
-            if ly >= ground - 50:
+            if ly >= ground - 50 and groundy <= ground:
 
                 ly = ground - 50
                 landed = True
@@ -621,9 +626,19 @@ while running:
                     )
 
                 drawc(coin_x, coin_y, coin_type)
+    if over == True:
+        pygame.draw.rect(screen, (120, 80, 45), (0, groundy, width, height - ground))
+        pygame.draw.rect(screen, (95, 60, 35), (0, groundy + 35, width, 15))
+        pygame.draw.rect(screen, (65, 155, 65), (0, groundy, width, 12))
+        pygame.draw.rect(screen, (40, 115, 45), (0, groundy + 12, width, 5))
 
-    pygame.draw.rect(screen, (120, 80, 45), (0, ground, width, height - ground))
-    pygame.draw.rect(screen, (95, 60, 35), (0, ground + 35, width, 15))
+        for x in range(0, width, 25): 
+            pygame.draw.rect(screen, (65, 155, 65), (x + 5, groundy - 8, 6, 10))
+            pygame.draw.rect(screen, (85, 180, 75), (x + 12, groundy - 5, 5, 7))
+
+        for x in range(15, width, 65):
+            pygame.draw.rect(screen, (155, 105, 60), (x, groundy + 25, 12, 5))
+            pygame.draw.rect(screen, (85, 55, 30), (x + 30, groundy + 38, 8, 4))
     
     ilx = int(draw_x)
     ily = int(ly)
