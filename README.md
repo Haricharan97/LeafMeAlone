@@ -4,7 +4,7 @@
 
 </div>
 
-> A fast-paced pirate-themed arcade game built with Python, Pygame, and Pygbag.
+> A fast-paced autumn-themed arcade game built with Python, Pygame, and Pygbag.
 
 <div align=center>
 
@@ -58,7 +58,7 @@ LeafMeAlone is built with **Python and Pygame** and uses **Pygbag** to run direc
 |---|---|
 | ![Start Screen](./assets/1.png) | ![Gameplay](./assets/2.png)| 
 
-|Treasure | Game Over|
+|Treasure | gitGame Over|
 |---|---|
 | ![Coins](./assets/3.png) | ![Game Over](./assets/4.png) | 
 
