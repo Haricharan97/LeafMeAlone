@@ -41,6 +41,34 @@ falle = 0
 
 font = pygame.font.Font(None, 40)
 
+def drawc(x, y, coin_type):
+    x = int(x)
+    y = int(y)
+
+    if coin_type == 1:
+        size = 15
+        border = (170, 115, 20)
+        body = (255, 210, 35)
+        highlight = (255, 240, 120)
+        value = "1"
+
+    else:
+        size = 22
+        border = (150, 75, 20)
+        body = (255, 145, 35)
+        highlight = (255, 195, 85)
+        value = "5"
+
+    pygame.draw.circle(screen, border, (x, y), size)
+    pygame.draw.circle(screen, body, (x, y), size - 3)
+    pygame.draw.circle(screen, border, (x, y), size - 5, 2)
+    pygame.draw.rect(screen, highlight, (x - size // 2, y - size // 2, 5, 4))
+
+    coinf = pygame.font.Font(None, 22 if coin_type == 1 else 28)
+    number = coinf.render(value, True, border)
+    numberr = number.get_rect(center = (x, y))
+    screen.blit(number, numberr)
+
 sw = 80
 sh = 50
 
@@ -292,22 +320,7 @@ while running:
 
             clear = False
 
-            if coin_type == 1:
-                pygame.draw.circle(
-                    screen,
-                    (255, 220, 40),
-                    (coin_x, int(coin_y)),
-                    15
-                )
-
-            else:
-
-                pygame.draw.circle(
-                    screen,
-                    (255, 140, 30),
-                    (coin_x, int(coin_y)),
-                    22
-                )
+            drawc(coin_x, coin_y, coin_type)
 
         if landed == False:
 
@@ -572,23 +585,7 @@ while running:
                     else:
                         coin_type = 1
 
-                if coin_type == 1:
-
-                    pygame.draw.circle(
-                        screen,
-                        (255, 220, 40),
-                        (coin_x, coin_y),
-                        15
-                    )
-
-                else:
-
-                    pygame.draw.circle(
-                        screen,
-                        (255, 140, 30),
-                        (coin_x, coin_y),
-                        22
-                    )
+                drawc(coin_x, coin_y, coin_type)
 
     if pause == True and over == False:
 
@@ -623,36 +620,28 @@ while running:
                         5
                     )
 
-                if coin_type == 1:
+                drawc(coin_x, coin_y, coin_type)
 
-                    pygame.draw.circle(
-                        screen,
-                        (255, 220, 40),
-                        (coin_x, int(coin_y)),
-                        15
-                    )
-
-                else:
-
-                    pygame.draw.circle(
-                        screen,
-                        (255, 140, 30),
-                        (coin_x, int(coin_y)),
-                        22
-                    )
-
-    pygame.draw.rect(
-        screen,
-        (70, 140,60),
-        (0, ground, width, 50)
-    )
+    pygame.draw.rect(screen, (120, 80, 45), (0, ground, width, height - ground))
+    pygame.draw.rect(screen, (95, 60, 35), (0, ground + 35, width, 15))
     
     ilx = int(draw_x)
     ily = int(ly)
 
+    shadec = (
+        max(0, draw_color[0] - 25),
+        max(0, draw_color[1] - 25),
+        max(0, draw_color[2] - 25)
+    )
+
     pygame.draw.rect(screen, draw_color, (ilx + 10, ily, 80, 10))
     pygame.draw.rect(screen, draw_color, (ilx, ily + 10, 100, 30))
     pygame.draw.rect(screen, draw_color, (ilx + 10, ily + 40, 80, 10))
+
+    pygame.draw.rect(screen, shadec, (ilx + 92, ily + 12, 6, 26))
+    pygame.draw.rect(screen, shadec, (ilx + 84, ily + 40, 6, 8))
+
+    pygame.draw.rect(screen, shadec, (ilx + 12, ily + 43, 72, 5))
 
     pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily, 80, 2))
     pygame.draw.rect(screen, (50, 80, 35), (ilx + 10, ily + 48, 80, 2))
