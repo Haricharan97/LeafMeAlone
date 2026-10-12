@@ -425,10 +425,7 @@ async def main():
                     (0, 0, 0)
                 )
 
-                screen.blit(
-                    dry_text,
-                    (140, 330)
-                )
+                screen.blit(dry_text, dry_text.get_rect(center = (width // 2, 330)))  
 
             else:
 
@@ -438,10 +435,7 @@ async def main():
                     (0, 0, 0)
                 )
 
-                screen.blit(
-                    dry_text,
-                    (145, 330)
-                )
+                screen.blit(dry_text, dry_text.get_rect(center = (width // 2, 330)))
 
         if start == True and pause == False and over == False:
 
@@ -754,7 +748,7 @@ async def main():
                 (0, 0, 0)
             )
 
-            screen.blit(start_text, (85, 330))
+            screen.blit(start_text, start_text.get_rect(center = (width // 2, 340)))
 
         if pause == True:
 
@@ -764,7 +758,7 @@ async def main():
                 (0, 0, 0)
             )
 
-            screen.blit(pause_text, (190, 300))
+            screen.blit(pause_text, pause_text.get_rect(center = (width // 2, 300)))
 
             space_text = font.render(
                     "SPACE TO CONTINUE",
@@ -772,7 +766,7 @@ async def main():
                     (0, 0, 0)
                 )
 
-            screen.blit(space_text, (105, 350))
+            screen.blit(space_text, space_text.get_rect(center = (width // 2, 350)))
 
         if over == True and landed == True:
             game_text = font.render(
@@ -781,7 +775,7 @@ async def main():
                 [0, 0, 0]
             )
 
-            screen.blit(game_text, (165, 300))
+            screen.blit(game_text, game_text.get_rect(center = (width // 2, 300)))
 
             restart_text = font.render(
                 "SPACE TO RESTART",
@@ -789,7 +783,7 @@ async def main():
                 (0, 0, 0)
             )
 
-            screen.blit(restart_text, (115, 350))
+            screen.blit(restart_text, restart_text.get_rect(center = (width // 2, 350)))
 
         pygame.display.update()
 
