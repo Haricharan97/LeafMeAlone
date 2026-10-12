@@ -31,7 +31,7 @@ async def main():
     groundy = height
     fall = 0
 
-    clear = False
+     
 
     hit_time = 0
     end_speed = 10
@@ -40,9 +40,11 @@ async def main():
     swing = 0
 
     fallo = lx
-    falle = 0
+     
 
     font = pygame.font.Font(None, 26)
+    coinf1 = pygame.font.Font(None, 22)
+    coinf5 = pygame.font.Font(None, 28)
 
     def drawc(x, y, coin_type):
         x = int(x)
@@ -67,7 +69,7 @@ async def main():
         pygame.draw.circle(screen, border, (x, y), size - 5, 2)
         pygame.draw.rect(screen, highlight, (x - size // 2, y - size // 2, 5, 4))
 
-        coinf = pygame.font.Font(None, 22 if coin_type == 1 else 28)
+        coinf = coinf1 if coin_type == 1 else coinf5
         number = coinf.render(value, True, border)
         numberr = number.get_rect(center = (x, y))
         screen.blit(number, numberr)
@@ -136,12 +138,12 @@ async def main():
                             landed = False
                             fall = 0
                             groundy = height
-                            clear = False
+                            
                             hit_time = 0
                             dry = 0
                             swing = 0
                             fallo = lx
-                            falle = 0
+                             
 
                             sponges = [
                                 [random.randint(0, width - sw), 750],
@@ -310,7 +312,7 @@ async def main():
 
         if over == True and landed == False:
 
-            clear = True
+             
 
             ty -= end_speed
 
@@ -319,7 +321,7 @@ async def main():
                 s[1] -= end_speed
 
                 if s[1] + sh > 0 and s[1] < height:
-                    clear = False
+                     
 
                     pygame.draw.rect(screen, (220, 190, 70), (s[0] + 8, s[1], 64, 50))
                     pygame.draw.rect(screen, (220, 190, 70), (s[0], s[1] + 8, 80, 34))
@@ -352,7 +354,7 @@ async def main():
 
             if coin_y + 22 > 0 and coin_y < height:
 
-                clear = False
+                 
 
                 drawc(coin_x, coin_y, coin_type)
 
@@ -503,11 +505,11 @@ async def main():
                             groundy = height + 10
                             fall = 0
                             swing = 0
-                            falle = 0
+                             
                             fallo = lx
 
                             dry = 0
-                            clear = False
+                             
 
                             break
 
