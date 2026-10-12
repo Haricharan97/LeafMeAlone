@@ -170,13 +170,23 @@ while running:
     
     screen.fill((180, 220, 250))
 
-    pygame.draw.rect(screen, (115, 70, 35), (200, ty + 170, 100, 450))
+    trunkt = ty + 170
 
-    pygame.draw.rect(screen, (85, 50, 30), (275, ty + 170, 25, 450))
-    pygame.draw.rect(screen, (150, 95, 50), (210, ty + 190, 12, 400))
+    if trunkt < height:
+        visiblet = max(0, trunkt)
+        trunkh = height - visiblet
 
-    pygame.draw.rect(screen, (90, 55, 30), (235, ty + 260, 8, 65))
-    pygame.draw.rect(screen, (90, 55, 30), (255, ty + 370, 8, 85))
+        pygame.draw.rect(screen, (115, 70, 35), (200, visiblet, 100, trunkh))
+        pygame.draw.rect(screen, (85, 50, 30), (275, visiblet, 25, trunkh))
+        pygame.draw.rect(screen, (150, 95, 50), (210, visiblet, 12, trunkh))
+
+        for y in range(0, height, 120):
+            barky = (y + int(ty)) % height
+            if barky >= visiblet:
+                pygame.draw.rect(screen, (90, 55, 30), (235, barky, 8, 55))
+                pygame.draw.rect(screen, (90, 55, 30), (255, barky + 45, 8, 40))
+                pygame.draw.rect(screen, (145, 90, 45), (220, barky + 20, 6, 35))
+
     pygame.draw.rect(screen, (145, 90, 45), (255, ty + 450, 8, 50))
 
     pygame.draw.rect(screen, (115, 70, 35), (135, ty + 190, 100, 25))
@@ -185,10 +195,38 @@ while running:
     pygame.draw.rect(screen, (115, 70, 35), (275, ty + 160, 100, 25))
     pygame.draw.rect(screen, (85, 50, 30), (275, ty + 180, 100, 5))
 
-    pygame.draw.rect(screen, (35, 120, 50), (100, ty + 20, 300, 180))
-    pygame.draw.rect(screen, (35, 120, 50), (50, ty + 60, 400, 100))
-    pygame.draw.rect(screen, (35, 120, 50), (150, ty, 200, 220))
-    pygame.draw.rect(screen, (35, 120, 50), (0, ty + 100, 500, 60))
+    pygame.draw.rect(screen, (35, 120, 50), (150, ty, 200, 40 ))
+    pygame.draw.rect(screen, (35, 120, 50), (100, ty + 40, 300, 40))
+    pygame.draw.rect(screen, (35, 120, 50), (50, ty + 80, 400, 80))
+    pygame.draw.rect(screen, (35, 120, 50), (0, ty + 110, 500, 50))
+    pygame.draw.rect(screen, (35, 120, 50), (100, ty + 160, 300, 40))
+    pygame.draw.rect(screen, (35, 120, 50), (150, ty + 200, 200, 20))
+
+    pygame.draw.rect(screen, (20, 95, 40), (150, ty + 205, 200, 15))
+    pygame.draw.rect(screen, (20, 95, 40), (100, ty + 185, 50, 15))
+    pygame.draw.rect(screen, (20, 95, 40), (350, ty + 185, 50, 15))
+    pygame.draw.rect(screen, (20, 95, 40), (50, ty + 150, 50, 10))
+    pygame.draw.rect(screen, (20, 95, 40), (400, ty + 150, 50, 10))
+    pygame.draw.rect(screen, (20, 95, 40), (0, ty + 150, 50, 10))
+    pygame.draw.rect(screen, (20, 95, 40), (450, ty + 150, 50, 10))
+
+    pygame.draw.rect(screen, (55, 165, 65), (170, ty + 15, 70, 20))
+    pygame.draw.rect(screen, (55, 165, 65), (260, ty + 25, 65, 15))
+    pygame.draw.rect(screen, (55, 165, 65), (115, ty + 55, 90, 20))
+    pygame.draw.rect(screen, (55, 165, 65), (300, ty + 65, 65, 20))
+    pygame.draw.rect(screen, (55, 165, 65), (65, ty + 100, 75, 20))
+    pygame.draw.rect(screen, (55, 165, 65), (355, ty + 110, 70, 20))
+
+    pygame.draw.rect(screen, (85, 185, 80), (185, ty + 20, 25, 8))
+    pygame.draw.rect(screen, (85, 185, 80), (315, ty + 70, 20, 8))
+    pygame.draw.rect(screen, (85, 185, 80), (65, ty + 100, 75, 20))
+    pygame.draw.rect(screen, (85, 185, 80), (375, ty + 115, 20, 8))
+
+    pygame.draw.rect(screen, (25, 105, 40), (160, ty + 145, 65, 15))
+    pygame.draw.rect(screen, (25, 105, 40), (275, ty + 155, 65, 15))
+    pygame.draw.rect(screen, (25, 105, 40), (115, ty + 170, 40, 12))
+    pygame.draw.rect(screen, (25, 105, 40), (360, ty + 145, 35, 15))
+
 
     
 
