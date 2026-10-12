@@ -40,7 +40,7 @@ swing = 0
 fallo = lx
 falle = 0
 
-font = pygame.font.Font(None, 40)
+font = pygame.font.Font(None, 26)
 
 def drawc(x, y, coin_type):
     x = int(x)
@@ -89,6 +89,12 @@ sponges = [
     [random.randint(0, width - sw), 1150],
     [random.randint(0, width - sw), 1350],
     [random.randint(0, width - sw), 1550]
+]
+
+clds = [
+    [40, 90, 0.4],
+    [220, 140, 0.3],
+    [360, 70, 0.5]
 ]
 
 running = True
@@ -141,6 +147,12 @@ while running:
                             [random.randint(0, width - sw), 1150],
                             [random.randint(0, width - sw), 1350],
                             [random.randint(0, width - sw), 1550]
+                        ]
+
+                        clds = [
+                            [40, 90, 0.4],
+                            [220, 140, 0.3],
+                            [360, 70, 0.5]
                         ]
 
                 elif start == False:
@@ -197,9 +209,25 @@ while running:
     if start == True and pause == False and over == False:
         if ly >= 400:
             ty -= up
-    
-    screen.fill((180, 220, 250))
 
+            for c in clds:
+                c[1] -= up * c[2]
+
+                if c[1] < -40:
+                    c[0] = random.randint(-20, width - 80)
+                    c[1] = height + random.randint(40, 160)
+    
+    pygame.draw.rect(screen, (135, 205, 245), (0, 0, width, 180))
+    pygame.draw.rect(screen, (160, 220, 250), (0, 180, width, 200))
+    pygame.draw.rect(screen, (190, 235, 255), (0, 380, width, 320))
+
+    for c in clds:
+        cx = int(c[0])
+        cy = int(c[1])
+
+        pygame.draw.rect(screen, (255, 255, 255), (cx + 15, cy, 50, 12))
+        pygame.draw.rect(screen, (255, 255, 255), (cx, cy + 10, 80, 20))
+        pygame.draw.rect(screen, (255, 255, 255), (cx + 25, cy - 5, 25, 8))
     trunkt = ty + 170
 
     if trunkt < height:
@@ -282,6 +310,9 @@ while running:
 
         clear = True
 
+        if clear == True and landed == False:
+            ty -= end_speed
+
         for s in sponges:
 
             s[1] -= end_speed
@@ -324,7 +355,7 @@ while running:
 
             drawc(coin_x, coin_y, coin_type)
 
-        if landed == False:
+        if landed == False and clear == True:
 
             falle += 1
             swing += 0.115
@@ -335,6 +366,10 @@ while running:
                 fall = 5
 
             ly += fall
+            ty -= fall
+
+            for c in clds:
+                c[1] -= fall * c[2]
 
             if groundy > ground:
                 groundy = max(ground, groundy - fall * 0.5)
@@ -676,21 +711,30 @@ while running:
     
     pygame.draw.rect(screen, (85, 105, 45), (ilx + 12, ily + 23, 76, 4))
             
-    hit_text = font.render(
-        "Hits: " + str(hits) + "/5",
-        True,
-        (0, 0, 0)
-    )
+    leafc = [
+        (125, 70, 30),
+        (180, 110, 40),
+        (150, 145, 45),
+        (105, 165, 55),
+        (55, 175, 65)
+    ]
 
-    screen.blit(hit_text, (15, 15))
+    for i in range(5 - hits):
+        hx = 15 + i * 26
+        hy = 15
+
+        pygame.draw.rect(screen, leafc[i], (hx + 4, hy, 14, 4))
+        pygame.draw.rect(screen, leafc[i], (hx, hy + 4, 22, 12))
+        pygame.draw.rect(screen, leafc[i], (hx + 4, hy + 16, 14, 4))
+        pygame.draw.rect(screen, (75, 85, 35), (hx + 4, hy + 9, 14, 2))
 
     score_text = font.render(
-        "Score: " + str(score),
+        "Distance: " + str(score),
         True,
         (0, 0, 0)
     )
 
-    screen.blit(score_text, (170, 15))
+    screen.blit(score_text, (width // 2 - score_text.get_width() // 2, 15))
 
     coin_text = font.render(
         "Coins: " + str(coins),
@@ -698,7 +742,7 @@ while running:
         (0, 0, 0)
     )
 
-    screen.blit(coin_text, (350, 15))
+    screen.blit(coin_text, (width - coin_text.get_width() - 15, 15))
 
     if start == False:
 
